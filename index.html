@@ -19,12 +19,12 @@
 </head>
 <body>
   <h2>VAST Tag Playback Test</h2>
-  <p>Testing Page</p>
+  <p>Tag testing on test page.</p>
 
   <div id="videoContainer"></div>
 
   <script>
-    const vastTagUrl = "https://ads.celtra.com/b98538fe/vpaid/vast.xml?accountId=b3e9685d&iosAdvId=test-ios&androidAdvId=test-android&externalAdServer=AppNexus&tagVersion=url-standard-7&eas.JHtDUkVBVElWRV9JRH0%253D=testcreative&externalCreativeId=testcreative&externalPlacementId=testplacement&externalSiteId=testsite&externalSiteName=testsite.com&externalSupplierId=testsupplier&externalCampaignId=testcampaign";
+    const vastTagUrl = "https://ads.celtra.com/b98538fe/vpaid/vast.xml?accountId=b3e9685d&iosAdvId=test-ios&androidAdvId=test-aaid&externalAdServer=AppNexus&tagVersion=url-standard-7&eas.JHtDUkVBVElWRV9JRH0%253D=testcreative&externalCreativeId=testcreative&externalPlacementId=testplacement&externalSiteId=testsite&externalSiteName=testsite.com&externalSupplierId=testsupplier&externalCampaignId=testcampaign";
 
     const adContainer = document.getElementById('videoContainer');
     const adDisplayContainer = new google.ima.AdDisplayContainer(adContainer);
@@ -46,7 +46,7 @@
       google.ima.AdErrorEvent.Type.AD_ERROR,
       (error) => {
         console.error("Ad Error:", error.getError());
-        adContainer.innerHTML = "<p style='color: red;'>Ad failed to load.</p>";
+        adContainer.innerHTML = "<p style='color: red;'>Ad failed to load. Check if the VAST tag is valid and not blocked in browser environments.</p>";
       }
     );
 
