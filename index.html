@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Celtra VAST Tag Test</title>
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #videoContainer {
+      width: 640px;
+      height: 360px;
+      background-color: black;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <h2>VAST Tag Playback Test</h2>
+  <p>If tracking is implemented correctly, your ad and tags (like Adelaide) should fire from the video below.</p>
+
+  <div id="videoContainer"></div>
+
+  <script>
+    const vastTagUrl = "https://ads.celtra.com/b98538fe/vpaid/vast.xml?accountId=b3e9685d&iosAdvId=test-ios&androidAdvId=test-android&externalAdServer=AppNexus&tagVersion=url-standard-7&eas.JHtDUkVBVElWRV9JRH0%253D=testcreative&externalCreativeId=testcreative&externalPlacementId=testplacement&externalSiteId=testsite&externalSiteName=testsite.com&externalSupplierId=testsupplier&externalCampaignId=testcampaign";
+
+    const adContainer = document.getElementById('videoContainer');
+    const adDisplayContainer = new google.ima.AdDisplayContainer(adContainer);
+    adDisplayContainer.initialize();
+
+    const adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+
+    adsLoader.addEventListener(
+      google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+      (event) => {
+        const adsManager = event.getAdsManager();
+        adsManager.init(640, 360, google.ima.ViewMode.NORMAL);
+        adsManager.start();
+      },
+      false
+    );
+
+    adsLoader.addEventListener(
+      google.ima.AdErrorEvent.Type.AD_ERROR,
+      (error) => {
+        console.error("Ad Error:", error.getError());
+        adContainer.innerHTML = "<p style='color: red;'>Ad failed to load.</p>";
+      }
+    );
+
+    const adsRequest = new google.ima.AdsRequest();
+    adsRequest.adTagUrl = vastTagUrl;
+
+    adsLoader.requestAds(adsRequest);
+  </script>
+</body>
+</html>
